@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="setupScreen" class="screen">
+  <div class="setup-card">
+    <div class="big-logo">📚</div>
+    <h1>Study Hub</h1>
+    <p>مكانك الجميل للمذاكرة والإنجاز ✨</p>
+
+    <input id="nameInput" type="text" placeholder="اسمك">
+    <input id="ageInput" type="number" placeholder="سنك" min="1" max="100">
+
+    <h3>اختار الـAvatar 👤</h3>
+
+    <div class="avatars">
+      <button class="avatar selected" onclick="chooseAvatar('avatar1',this)">
+        👦
+      </button>
+      <button class="avatar" onclick="chooseAvatar('avatar2',this)">
+        🧑
+      </button>
+      <button class="avatar" onclick="chooseAvatar('avatar3',this)">
+        👨‍🎓
+      </button>
+      <button class="avatar" onclick="chooseAvatar('avatar4',this)">
+        👨‍💻
+      </button>
+      <button class="avatar" onclick="chooseAvatar('avatar5',this)">
+        🧑‍🔬
+      </button>
+      <button class="avatar" onclick="chooseAvatar('avatar6',this)">
+        🧑‍🎨
+      </button>
+    </div>
+
+    <button class="main-btn" onclick="createAccount()">
+      ابدأ المذاكرة 🚀
+    </button>
+  </div>
+</div>
+
+
+<div id="accountScreen" class="screen hidden">
+  <div class="setup-card">
+    <div class="big-logo">👥</div>
+    <h1>اختار الحساب</h1>
+    <div id="accountList"></div>
+
+    <button class="main-btn" onclick="showSetup()">
+      ➕ إضافة حساب
+    </button>
+  </div>
+</div>
+
+
+<div id="mainApp" class="hidden">
+
+  <header class="app-header">
+
+    <button class="corner-btn left" onclick="showPage('settings')">
+      ⚙️
+      <span>Settings</span>
+    </button>
+
+    <div class="brand">
+      <span>📚</span>
+      <div>
+        <h1>Study Hub</h1>
+        <p id="welcomeText">أهلاً 👋</p>
+      </div>
+    </div>
+
+    <button class="corner-btn right" onclick="showPage('dashboard')">
+      🏠
+      <span>الرئيسية</span>
+    </button>
+
+  </header>
+
+
+  <main class="app-container">
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboard" class="page active">
+
+      <div class="hero">
+
+        <div>
+          <h2 id="dashboardName">أهلاً بك 👋</h2>
+          <p>جاهز تحقق إنجاز جديد النهارده؟ 🚀</p>
+        </div>
+
+        <div class="profile-circle" id="profileAvatar">👦</div>
+
+      </div>
+
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <span>⭐</span>
+          <strong id="xp">0</strong>
+          <small>XP</small>
+        </div>
+
+        <div class="stat-card">
+          <span>🏅</span>
+          <strong id="level">1</strong>
+          <small>Level</small>
+        </div>
+
+        <div class="stat-card">
+          <span>🔥</span>
+          <strong id="streak">0</strong>
+          <small>Streak</small>
+        </div>
+
+        <div class="stat-card">
+          <span>⏱️</span>
+          <strong id="sessions">0</strong>
+          <small>جلسات</small>
+        </div>
+
+      </div>
+
+
+      <div class="goal-card">
+        <h3>🎯 هدف اليوم</h3>
+
+        <p id="goalText">لم تحدد هدفك بعد</p>
+
+        <div class="inline-form">
+          <input id="goalInput" type="number" placeholder="دقائق">
+          <button onclick="saveGoal()">حفظ</button>
+        </div>
+      </div>
+
+
+      <h2 class="section-title">✨ مركز المذاكرة</h2>
+
+      <div class="feature-grid">
+
+        <div class="feature-card" onclick="showPage('subjects')">
+          <span>📚</span>
+          <h3>المواد</h3>
+          <p>كل موادك الدراسية</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('tasks')">
+          <span>✅</span>
+          <h3>المهام</h3>
+          <p>نظم مهامك اليومية</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('pomodoro')">
+          <span>⏱️</span>
+          <h3>Pomodoro</h3>
+          <p>ذاكر بتركيز</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('quiz')">
+          <span>📝</span>
+          <h3>اختبارات</h3>
+          <p>اختبر نفسك</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('progress')">
+          <span>📊</span>
+          <h3>تقدمي</h3>
+          <p>تابع إنجازك</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('schedule')">
+          <span>🗓️</span>
+          <h3>الجدول</h3>
+          <p>نظم يومك</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('flashcards')">
+          <span>🧠</span>
+          <h3>Flashcards</h3>
+          <p>راجع بسرعة</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('notes')">
+          <span>📝</span>
+          <h3>الملاحظات</h3>
+          <p>احفظ أفكارك</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('planner')">
+          <span>🧭</span>
+          <h3>Study Planner</h3>
+          <p>اعمل خطة مذاكرة</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('exams')">
+          <span>📅</span>
+          <h3>الامتحانات</h3>
+          <p>اعرف فاضل كام يوم</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('questionBank')">
+          <span>🧠</span>
+          <h3>بنك الأسئلة</h3>
+          <p>سؤال عشوائي</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('dictionary')">
+          <span>📖</span>
+          <h3>القاموس</h3>
+          <p>كلمات English & French</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('rewards')">
+          <span>🎁</span>
+          <h3>Daily Reward</h3>
+          <p>جائزتك اليومية</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('challenges')">
+          <span>🏆</span>
+          <h3>التحديات</h3>
+          <p>حقق التحديات</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('weekly')">
+          <span>📈</span>
+          <h3>التقرير الأسبوعي</h3>
+          <p>شوف تطورك</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('search')">
+          <span>🔎</span>
+          <h3>البحث</h3>
+          <p>ابحث في الموقع</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('quickNotes')">
+          <span>📌</span>
+          <h3>Quick Notes</h3>
+          <p>ملاحظة سريعة</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('themes')">
+          <span>🎨</span>
+          <h3>الثيمات</h3>
+          <p>غير شكل الموقع</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('sounds')">
+          <span>🎵</span>
+          <h3>Study Sounds</h3>
+          <p>أصوات للمذاكرة</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('break')">
+          <span>🧘</span>
+          <h3>وقت الراحة</h3>
+          <p>خد بريك</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('tips')">
+          <span>💡</span>
+          <h3>Study Tips</h3>
+          <p>نصيحة كل يوم</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('focus')">
+          <span>🎯</span>
+          <h3>Focus Mode</h3>
+          <p>تركيز بدون تشتيت</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('content')">
+          <span>🗂️</span>
+          <h3>المحتوى</h3>
+          <p>نظم دروسك</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('assistant')">
+          <span>🤖</span>
+          <h3>Study Assistant</h3>
+          <p>مساعد المذاكرة</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('achievements')">
+          <span>🏆</span>
+          <h3>Achievements</h3>
+          <p>إنجازاتك</p>
+        </div>
+
+        <div class="feature-card" onclick="showPage('character')">
+          <span>🐣</span>
+          <h3>شخصيتي</h3>
+          <p>طور شخصيتك</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SUBJECTS -->
+
+    <section id="subjects" class="page">
+
+      <div class="page-title">
+        <h2>📚 المواد الدراسية</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="subject-grid">
+
+        <button onclick="openSubject('القرآن الكريم')">📖<b>القرآن</b></button>
+        <button onclick="openSubject('الفقه')">🕌<b>الفقه</b></button>
+        <button onclick="openSubject('أصول الدين')">📚<b>أصول الدين</b></button>
+        <button onclick="openSubject('العربي')">📝<b>العربي</b></button>
+        <button onclick="openSubject('Math')">🧮<b>Math</b></button>
+        <button onclick="openSubject('Science')">🔬<b>Science</b></button>
+        <button onclick="openSubject('Social Studies')">🌍<b>Social Studies</b></button>
+        <button onclick="openSubject('English')">🇬🇧<b>English</b></button>
+        <button onclick="openSubject('French')">🇫🇷<b>French</b></button>
+        <button onclick="openSubject('Computer')">💻<b>Computer</b></button>
+
+      </div>
+
+      <div id="subjectDetails" class="result-box hidden"></div>
+
+    </section>
+
+
+    <!-- TASKS -->
+
+    <section id="tasks" class="page">
+
+      <div class="page-title">
+        <h2>✅ المهام</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="form-card">
+
+        <input id="taskInput" placeholder="اكتب مهمة جديدة...">
+
+        <select id="priorityInput">
+          <option>عادي</option>
+          <option>مهم</option>
+          <option>عاجل</option>
+        </select>
+
+        <button class="main-btn" onclick="addTask()">➕ إضافة مهمة</button>
+
+      </div>
+
+      <div class="filter-buttons">
+        <button onclick="filterTasks('all')">الكل</button>
+        <button onclick="filterTasks('active')">غير مكتملة</button>
+        <button onclick="filterTasks('completed')">مكتملة</button>
+      </div>
+
+      <ul id="taskList" class="task-list"></ul>
+
+    </section>
+
+
+    <!-- POMODORO -->
+
+    <section id="pomodoro" class="page">
+
+      <div class="page-title">
+        <h2>⏱️ Pomodoro</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="timer-card">
+
+        <div id="timer">25:00</div>
+
+        <button onclick="startTimer()">▶️ Start</button>
+        <button onclick="pauseTimer()">⏸️ Pause</button>
+        <button onclick="resetTimer()">🔄 Reset</button>
+
+      </div>
+
+    </section>
+
+
+    <!-- QUIZ -->
+
+    <section id="quiz" class="page">
+
+      <div class="page-title">
+        <h2>📝 الاختبارات</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="quiz-card">
+
+        <h3 id="question">جاهز؟</h3>
+
+        <div id="answers"></div>
+
+        <p id="quizResult">النتيجة: 0</p>
+
+        <button onclick="nextQuestion()">السؤال التالي ➡️</button>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROGRESS -->
+
+    <section id="progress" class="page">
+
+      <div class="page-title">
+        <h2>📊 تقدمي</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="progress-card">
+
+        <div class="big-progress">
+          <div id="progressBar"></div>
+        </div>
+
+        <h2 id="progressText">0%</h2>
+
+      </div>
+
+    </section>
+
+
+    <!-- SCHEDULE -->
+
+    <section id="schedule" class="page">
+
+      <div class="page-title">
+        <h2>🗓️ الجدول</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="schedule-grid">
+
+        <div><h3>السبت</h3><p>🧮 Math</p><p>🇬🇧 English</p></div>
+        <div><h3>الأحد</h3><p>🔬 Science</p><p>📖 قرآن</p></div>
+        <div><h3>الاثنين</h3><p>📝 عربي</p><p>🕌 فقه</p></div>
+        <div><h3>الثلاثاء</h3><p>💻 Computer</p><p>🇫🇷 French</p></div>
+        <div><h3>الأربعاء</h3><p>🌍 Social</p><p>📚 أصول الدين</p></div>
+        <div><h3>الخميس</h3><p>🔄 مراجعة</p></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FLASHCARDS -->
+
+    <section id="flashcards" class="page">
+
+      <div class="page-title">
+        <h2>🧠 Flashcards</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="flashcard" onclick="flipCard()">
+
+        <div id="flashQuestion">ما هو ناتج 2 × 8 ؟</div>
+        <div id="flashAnswer" class="hidden">16</div>
+
+      </div>
+
+      <div class="center">
+        <button onclick="nextCard()">بطاقة جديدة ➡️</button>
+      </div>
+
+    </section>
+
+
+    <!-- NOTES -->
+
+    <section id="notes" class="page">
+
+      <div class="page-title">
+        <h2>📝 الملاحظات</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <textarea id="notesArea" placeholder="اكتب ملاحظاتك هنا..."></textarea>
+
+      <button onclick="saveNotes()">💾 حفظ الملاحظات</button>
+
+      <p id="notesSaved"></p>
+
+    </section>
+
+
+    <!-- PLANNER -->
+
+    <section id="planner" class="page">
+
+      <div class="page-title">
+        <h2>🧭 Study Planner</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="form-card">
+
+        <input id="plannerSubject" placeholder="المادة">
+        <input id="plannerDays" type="number" placeholder="عدد الأيام">
+
+        <button onclick="createPlan()">✨ اعمل الخطة</button>
+
+      </div>
+
+      <div id="plannerResult" class="result-box"></div>
+
+    </section>
+
+
+    <!-- EXAMS -->
+
+    <section id="exams" class="page">
+
+      <div class="page-title">
+        <h2>📅 Exam Countdown</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="form-card">
+
+        <input id="examName" placeholder="اسم الامتحان">
+        <input id="examDate" type="date">
+
+        <button onclick="addExam()">➕ إضافة</button>
+
+      </div>
+
+      <div id="examList"></div>
+
+    </section>
+
+
+    <!-- QUESTION BANK -->
+
+    <section id="questionBank" class="page">
+
+      <div class="page-title">
+        <h2>🧠 بنك الأسئلة</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="big-question">
+        <p id="randomQuestionText">اضغط الزر للحصول على سؤال 🎲</p>
+        <button onclick="randomQuestion()">🎲 سؤال عشوائي</button>
+      </div>
+
+    </section>
+
+
+    <!-- DICTIONARY -->
+
+    <section id="dictionary" class="page">
+
+      <div class="page-title">
+        <h2>📖 القاموس</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="form-card">
+
+        <input id="wordInput" placeholder="اكتب كلمة English">
+
+        <button onclick="searchWord()">🔎 بحث</button>
+
+      </div>
+
+      <div id="wordResult" class="result-box"></div>
+
+    </section>
+
+
+    <!-- REWARDS -->
+
+    <section id="rewards" class="page">
+
+      <div class="page-title">
+        <h2>🎁 Daily Reward</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="reward-card">
+
+        <div class="reward-icon">🎁</div>
+
+        <h2 id="rewardText">جائزتك اليومية جاهزة!</h2>
+
+        <button onclick="claimReward()">استلم الجائزة 🎉</button>
+
+      </div>
+
+    </section>
+
+
+    <!-- CHALLENGES -->
+
+    <section id="challenges" class="page">
+
+      <div class="page-title">
+        <h2>🏆 التحديات</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="challenge-grid">
+
+        <div class="challenge-card">
+          🎯
+          <h3>تحدي الأسبوع</h3>
+          <p>أكمل 10 مهام</p>
+        </div>
+
+        <div class="challenge-card">
+          ⏱️
+          <h3>تحدي التركيز</h3>
+          <p>5 جلسات Pomodoro</p>
+        </div>
+
+        <div class="challenge-card">
+          📚
+          <h3>تحدي المذاكرة</h3>
+          <p>ذاكر 7 أيام</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- WEEKLY -->
+
+    <section id="weekly" class="page">
+
+      <div class="page-title">
+        <h2>📈 التقرير الأسبوعي</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div id="weeklyReport" class="report-card"></div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section id="search" class="page">
+
+      <div class="page-title">
+        <h2>🔎 البحث</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="form-card">
+
+        <input id="searchInput" placeholder="ابحث عن أي شيء...">
+
+        <button onclick="globalSearch()">🔎 بحث</button>
+
+      </div>
+
+      <div id="searchResults" class="result-box"></div>
+
+    </section>
+
+
+    <!-- QUICK NOTES -->
+
+    <section id="quickNotes" class="page">
+
+      <div class="page-title">
+        <h2>📌 Quick Notes</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="form-card">
+
+        <input id="quickNoteInput" placeholder="ملاحظة سريعة...">
+
+        <button onclick="saveQuickNote()">📌 حفظ</button>
+
+      </div>
+
+      <div id="quickNotesList"></div>
+
+    </section>
+
+
+    <!-- THEMES -->
+
+    <section id="themes" class="page">
+
+      <div class="page-title">
+        <h2>🎨 Themes</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="theme-grid">
+
+        <button onclick="setTheme('default')">🌈 Default</button>
+        <button onclick="setTheme('pink')">🌸 Pink</button>
+        <button onclick="setTheme('blue')">🌊 Blue</button>
+        <button onclick="setTheme('green')">🌿 Green</button>
+        <button onclick="setTheme('purple')">🍇 Purple</button>
+
+      </div>
+
+    </section>
+
+
+    <!-- SOUNDS -->
+
+    <section id="sounds" class="page">
+
+      <div class="page-title">
+        <h2>🎵 Study Sounds</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="sound-card">
+
+        <h3>صوت هادئ للمذاكرة</h3>
+
+        <button onclick="playStudySound()">▶️ تشغيل</button>
+        <button onclick="stopStudySound()">⏹️ إيقاف</button>
+
+      </div>
+
+    </section>
+
+
+    <!-- BREAK -->
+
+    <section id="break" class="page">
+
+      <div class="page-title">
+        <h2>🧘 وقت الراحة</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="timer-card">
+
+        <div id="breakTimer">05:00</div>
+
+        <button onclick="startBreak()">☕ ابدأ الراحة</button>
+
+      </div>
+
+    </section>
+
+
+    <!-- TIPS -->
+
+    <section id="tips" class="page">
+
+      <div class="page-title">
+        <h2>💡 Study Tips</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="tip-card">
+
+        <p id="dailyTip">ذاكر بتركيز لفترة قصيرة وخد راحة.</p>
+
+        <button onclick="newTip()">💡 نصيحة جديدة</button>
+
+      </div>
+
+    </section>
+
+
+    <!-- FOCUS -->
+
+    <section id="focus" class="page">
+
+      <div class="page-title">
+        <h2>🎯 Focus Mode</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="focus-card">
+
+        <input id="focusTask" placeholder="إيه اللي هتذاكره؟">
+
+        <button onclick="startFocusMode()">🎯 ابدأ</button>
+
+        <div id="focusDisplay"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTENT -->
+
+    <section id="content" class="page">
+
+      <div class="page-title">
+        <h2>🗂️ المحتوى</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="content-buttons">
+
+        <button onclick="showContent('الدروس')">📖 الدروس</button>
+        <button onclick="showContent('الملخصات')">📑 الملخصات</button>
+        <button onclick="showContent('الملفات')">📁 الملفات</button>
+
+      </div>
+
+      <div id="contentResult" class="result-box"></div>
+
+    </section>
+
+
+    <!-- ASSISTANT -->
+
+    <section id="assistant" class="page">
+
+      <div class="page-title">
+        <h2>🤖 Study Assistant</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="assistant-card">
+
+        <p>اختار محتاج مساعدة في إيه:</p>
+
+        <button onclick="assistantHelp('start')">
+          🚀 مش عارف أبدأ
+        </button>
+
+        <button onclick="assistantHelp('tired')">
+          😴 أنا تعبان
+        </button>
+
+        <button onclick="assistantHelp('plan')">
+          🗓️ اعملي خطة
+        </button>
+
+        <div id="assistantResult"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ACHIEVEMENTS -->
+
+    <section id="achievements" class="page">
+
+      <div class="page-title">
+        <h2>🏆 Achievements</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="achievement-grid">
+
+        <div class="achievement-card">
+          🥇
+          <h3>أول مهمة</h3>
+          <p>أكمل أول مهمة</p>
+        </div>
+
+        <div class="achievement-card">
+          🔥
+          <h3>Streak</h3>
+          <p>ذاكر عدة أيام</p>
+        </div>
+
+        <div class="achievement-card">
+          ⏱️
+          <h3>Focus</h3>
+          <p>أكمل جلسة تركيز</p>
+        </div>
+
+        <div class="achievement-card">
+          ⭐
+          <h3>Level Up</h3>
+          <p>وصل Level جديد</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CHARACTER -->
+
+    <section id="character" class="page">
+
+      <div class="page-title">
+        <h2>🐣 شخصيتي</h2>
+        <button onclick="showPage('dashboard')">← الرئيسية</button>
+      </div>
+
+      <div class="character-card">
+
+        <div id="characterDisplay">👦</div>
+
+        <h2 id="characterLevel">Level 1</h2>
+
+        <p>
+          كل ما تتقدم في المذاكرة شخصيتك تتطور ⭐
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- SETTINGS -->
+
+    <section id="settings" class="page">
+
+      <div class="page-title">
+        <h2>⚙️ Settings</h2>
+        <button onclick="showPage('dashboard')">🏠 الرئيسية</button>
+      </div>
+
+      <div class="settings-grid">
+
+        <div class="setting-card">
+
+          <h3>🌙 المظهر</h3>
+
+          <button id="themeButton" onclick="toggleTheme()">
+            🌙 Dark Mode
+          </button>
+
+          <button onclick="showPage('themes')">
+            🎨 Themes
+          </button>
+
+        </div>
+
+
+        <div class="setting-card">
+
+          <h3>👥 الحسابات</h3>
+
+          <button onclick="switchAccount()">
+            🔄 تبديل الحساب
+          </button>
+
+          <button onclick="addNewAccount()">
+            ➕ إضافة حساب
+          </button>
+
+          <button onclick="logout()">
+            🚪 تسجيل الخروج
+          </button>
+
+        </div>
+
+
+        <div class="setting-card">
+
+          <h3>🎵 الصوت</h3>
+
+          <button onclick="playStudySound()">
+            ▶️ تشغيل
+          </button>
+
+          <button onclick="stopStudySound()">
+            ⏹️ إيقاف
+          </button>
+
+        </div>
+
+
+        <div class="setting-card danger">
+
+          <h3>⚠️ البيانات</h3>
+
+          <button onclick="resetData()">
+            🗑️ حذف بيانات الحساب
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
